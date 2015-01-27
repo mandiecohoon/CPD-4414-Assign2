@@ -18,7 +18,7 @@ package cpd4414.assign2;
 
 /**
  *
- * @author Len Payne <len.payne@lambtoncollege.ca>
+ * @author Amanda Cohoon <mandiecohoon@gmail.com>
  */
 public class CPD4414Assign2 {
 
