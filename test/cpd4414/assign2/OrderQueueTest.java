@@ -65,4 +65,16 @@ public class OrderQueueTest {
         assertTrue(Math.abs(result - expResult) < 1000);
     }
     
+    @Test
+    public void testWhenCustomerDoesNotExistAndCustomerIDDoesNotExistThenThrowException() {
+       OrderQueue orderQueue = new OrderQueue();
+       
+       try {
+           Order order = new Order(null, null);
+       } catch (Exception e) {
+           System.out.println("It errored!");
+       }
+       
+    }
+    
 }
