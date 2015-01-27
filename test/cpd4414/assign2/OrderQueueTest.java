@@ -53,7 +53,7 @@ public class OrderQueueTest {
     }
 
     @Test
-    public void testWhenCustomerExistsAndPurchasesExistThenTimeReceivedIsNow() {
+    public void testWhenCustomerExistsAndPurchasesExistThenTimeReceivedIsNow() throws Exception {
         OrderQueue orderQueue = new OrderQueue();
         Order order = new Order("CUST00001", "ABC Construction");
         order.addPurchase(new Purchase("PROD0004", 450));
@@ -70,12 +70,10 @@ public class OrderQueueTest {
        OrderQueue orderQueue = new OrderQueue();
        Order order = new Order(null, null);
        boolean flag = false;
+       
        try {
-           if (order.getCustomerId() == null && order.getCustomerName() == null) {
-               throw new Exception();
-           }
+            orderQueue.add(order);
        } catch (Exception e) {
-           System.out.println("It errored!" + e);
            flag = true;
        }
        assertTrue(flag);
