@@ -31,6 +31,9 @@ public class OrderQueue {
         if (order.getCustomerId() == null && order.getCustomerName() == null) {
             throw new Exception();
         }
+        if (order.getListOfPurchases().isEmpty()) {
+            throw new Exception();
+        }
         orderQueue.add(order);
         order.setTimeReceived(new Date());
     }

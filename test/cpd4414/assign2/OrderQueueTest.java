@@ -79,4 +79,17 @@ public class OrderQueueTest {
        assertTrue(flag);
     }
     
+    @Test
+    public void testWhenListOfPurchasesDoesNotExistThenThrowException() throws Exception {
+        OrderQueue orderQueue = new OrderQueue();
+        Order order = new Order("CUST00001", "ABC Construction");
+        boolean flag = false;
+        
+        try {
+           orderQueue.add(order);
+        } catch (Exception e) {
+            flag = true;
+        }
+        assertTrue(flag);
+    }
 }
