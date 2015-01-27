@@ -68,13 +68,17 @@ public class OrderQueueTest {
     @Test
     public void testWhenCustomerDoesNotExistAndCustomerIDDoesNotExistThenThrowException() {
        OrderQueue orderQueue = new OrderQueue();
-       
+       Order order = new Order(null, null);
+       boolean flag = false;
        try {
-           Order order = new Order(null, null);
+           if (order.getCustomerId() == null && order.getCustomerName() == null) {
+               throw new Exception();
+           }
        } catch (Exception e) {
-           System.out.println("It errored!");
+           System.out.println("It errored!" + e);
+           flag = true;
        }
-       
+       assertTrue(flag);
     }
     
 }
