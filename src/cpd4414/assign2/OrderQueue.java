@@ -66,12 +66,18 @@ public class OrderQueue {
         
         if (flag == true) {
             order.setTimeProcessed(new Date());
-        }
-        
-        
+            processing.add(order);
+            orderQueue.remove(order);
+        } 
     }
     
-    public void remove() {
-        orderQueue.remove();
+    public void fulfill(Order order) throws Exception {
+        if (order.getTimeProcessed() == null) {
+            throw new Exception("Order does not have a time processed.");
+        } else if (order.getTimeReceived() == null) {
+            throw new Exception("Order does not have a time recieved.");
+        } else {
+            order.setTimeFulfilled(new Date());
+        }
     }
 }
