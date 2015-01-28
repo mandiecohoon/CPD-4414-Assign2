@@ -17,7 +17,9 @@
 package cpd4414.assign2;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -26,13 +28,14 @@ import java.util.Queue;
  */
 public class OrderQueue {
     Queue<Order> orderQueue = new ArrayDeque<>();
+    ArrayList<Order> processing = new ArrayList<>();
     
     public void add(Order order) throws Exception {
-        if (order.getCustomerId() == null && order.getCustomerName() == null) {
-            throw new Exception();
+        if (order.getCustomerId() == null || order.getCustomerName() == null) {
+            throw new Exception("Customer ID or Customer name is missing.");
         }
         if (order.getListOfPurchases().isEmpty()) {
-            throw new Exception();
+            throw new Exception("List of purchases is empty.");
         }
         
         if (order == null ) {
@@ -44,6 +47,23 @@ public class OrderQueue {
     
     public Order next() {
         return orderQueue.element();
+    }
+    
+    public void process(Order order) throws Exception {
+        Inventory inventory = new Inventory();
+        
+        if (order.getTimeReceived() == null) {
+            throw new Exception("Order does not have a time recieved.");
+        } else {
+            List<Purchase> tempPurchaseList = new ArrayList<>(order.getListOfPurchases());
+            for (int i = 0; i < tempPurchaseList.size(); i++) {
+                if(tempPurchaseList.get(i).getQuantity() >= inventory.getQuantityForId(tempPurchaseList.get(i).getProductId())) {
+                    
+                }
+            }
+        }
+        
+        
     }
     
     public void remove() {
