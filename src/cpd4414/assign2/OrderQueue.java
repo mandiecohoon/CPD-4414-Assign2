@@ -34,7 +34,19 @@ public class OrderQueue {
         if (order.getListOfPurchases().isEmpty()) {
             throw new Exception();
         }
+        
+        if (order == null ) {
+            //order.addPurchase(null);
+        }
         orderQueue.add(order);
         order.setTimeReceived(new Date());
+    }
+    
+    public Order next() {
+        return orderQueue.element();
+    }
+    
+    public void remove() {
+        orderQueue.remove();
     }
 }
