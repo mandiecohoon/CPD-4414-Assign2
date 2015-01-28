@@ -56,8 +56,8 @@ public class OrderQueueTest {
     public void testWhenCustomerExistsAndPurchasesExistThenTimeReceivedIsNow() throws Exception {
         OrderQueue orderQueue = new OrderQueue();
         Order order = new Order("CUST00001", "ABC Construction");
-        order.addPurchase(new Purchase("PROD0004", 450));
-        order.addPurchase(new Purchase("PROD0006", 250));
+        order.addPurchase(new Purchase(0004, 450));
+        order.addPurchase(new Purchase(0006, 250));
         orderQueue.add(order);
         
         long expResult = new Date().getTime();
@@ -97,13 +97,13 @@ public class OrderQueueTest {
     public void testWhenNoOrdersThenReturnEarliestOrder() throws Exception {
         OrderQueue orderQueue = new OrderQueue();
         Order order = new Order("CUST00001", "ABC Construction");
-        order.addPurchase(new Purchase("PROD0004", 450));
-        order.addPurchase(new Purchase("PROD0006", 250));
+        order.addPurchase(new Purchase(0004, 450));
+        order.addPurchase(new Purchase(0006, 250));
         orderQueue.add(order);
         
         Order orderNew = new Order("CUST00002", "ABCD Construction");
-        orderNew.addPurchase(new Purchase("PROD0004", 450));
-        orderNew.addPurchase(new Purchase("PROD0006", 250));
+        orderNew.addPurchase(new Purchase(0004, 450));
+        orderNew.addPurchase(new Purchase(0006, 250));
         orderQueue.add(orderNew);
         
         Order expResult = order;
@@ -132,8 +132,8 @@ public class OrderQueueTest {
     public void testWhenOrderHasTimeRecievedAndOrderIsInStockThenSetTimeToNow() throws Exception {
         OrderQueue orderQueue = new OrderQueue();
         Order order = new Order("CUST00001", "ABC Construction");
-        order.addPurchase(new Purchase("PROD0004", 450));
-        order.addPurchase(new Purchase("PROD0006", 250));
+        order.addPurchase(new Purchase(0004, 450));
+        order.addPurchase(new Purchase(0006, 250));
         orderQueue.add(order);
     }
     
