@@ -50,17 +50,22 @@ public class OrderQueue {
     }
     
     public void process(Order order) throws Exception {
-        Inventory inventory = new Inventory();
+        //Inventory inventory = new Inventory();
+        boolean flag = true;
         
         if (order.getTimeReceived() == null) {
             throw new Exception("Order does not have a time recieved.");
         } else {
             List<Purchase> tempPurchaseList = new ArrayList<>(order.getListOfPurchases());
-            for (int i = 0; i < tempPurchaseList.size(); i++) {
-                if(tempPurchaseList.get(i).getQuantity() >= inventory.getQuantityForId(tempPurchaseList.get(i).getProductId())) {
-                    
+            for (Purchase tempPurchaseListItem : tempPurchaseList) {
+                if (tempPurchaseListItem.getQuantity() >= Inventory.getQuantityForId(tempPurchaseListItem.getProductId())) {
+                    flag = false;
                 }
             }
+        }
+        
+        if (flag == true) {
+            order.setTimeProcessed(new Date());
         }
         
         
