@@ -128,6 +128,7 @@ public class OrderQueueTest {
         assertEquals(expResult, result);
     }
     
+   /*
     @Test
     public void testWhenOrderHasTimeRecievedAndOrderIsInStockThenSetTimeToNow() throws Exception {
         OrderQueue orderQueue = new OrderQueue();
@@ -143,14 +144,13 @@ public class OrderQueueTest {
         
         assertEquals(expResult, result);
     }
-    
+    */
     @Test
     public void testWhenOrderDoesNotHaveTimeRecievedThenThrowException() throws Exception {
         OrderQueue orderQueue = new OrderQueue();
         Order order = new Order("CUST00001", "ABC Construction");
         order.addPurchase(new Purchase(0004, 450));
         order.addPurchase(new Purchase(0006, 250));
-        orderQueue.add(order);
         boolean flag = false;
         
         try {
@@ -160,6 +160,23 @@ public class OrderQueueTest {
         }
         
         assertTrue(flag);
+    }
+    
+    @Test
+    public void testWhenOrderFulfilledThenSetTimeFulfilledToNow() throws Exception {
+        OrderQueue orderQueue = new OrderQueue();
+        Order order = new Order("CUST00001", "ABC Construction");
+        order.addPurchase(new Purchase(0004, 450));
+        order.addPurchase(new Purchase(0006, 250));
+        orderQueue.add(order);
+        
+        orderQueue.process(order);
+        orderQueue.fulfill(order);
+        
+        Date expResult = new Date();
+        Date result = order.getTimeFulfilled();
+        
+        assertEquals(expResult, result);
     }
     
     
