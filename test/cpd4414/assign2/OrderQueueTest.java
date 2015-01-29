@@ -199,5 +199,22 @@ public class OrderQueueTest {
         assertTrue(flag);
     }
     
+    @Test
+    public void testWhenOrderRequestToBeFulfilledAndOrderDoesNotHaveATimeRecievedThenThrowException() throws Exception {
+        OrderQueue orderQueue = new OrderQueue();
+        Order order = new Order("CUST00001", "ABC Construction");
+        order.addPurchase(new Purchase(0004, 450));
+        order.addPurchase(new Purchase(0006, 250));
+        boolean flag = false;
+        
+        try {
+            orderQueue.fulfill(order);
+        } catch (Exception e) {
+            flag = true;
+        }
+        
+        assertTrue(flag);
+    }
+    
     
 }
