@@ -163,7 +163,7 @@ public class OrderQueueTest {
         assertTrue(flag);
     }
     */
-    /*
+    
     @Test
     public void testWhenOrderFulfilledThenSetTimeFulfilledToNow() throws Exception {
         OrderQueue orderQueue = new OrderQueue();
@@ -180,7 +180,7 @@ public class OrderQueueTest {
         
         assertEquals(expResult, result);
     }
-    */
+    
     @Test
     public void testWhenOrderRequestToBeFulfilledAndOrderDoesNotHaveATimeProcessedThenThrowException() throws Exception {
         OrderQueue orderQueue = new OrderQueue();
@@ -216,5 +216,19 @@ public class OrderQueueTest {
         assertTrue(flag);
     }
     
+    @Test
+    public void testWhenResquestForReportAndThereAreNoOrdersThenReturnEmptyString() throws Exception {
+        OrderQueue orderQueue = new OrderQueue();
+        Order order = new Order("CUST00001", "ABC Construction");
+        
+        String expResult = "";
+        String result = orderQueue.report(order);
+        
+        assertEquals(expResult, result);
+    }
     
+    @Test
+    public void testWhenRequestForReportAndThereAreOrdersThenReturnJsonObject() throws Exception {
+        
+    }
 }
