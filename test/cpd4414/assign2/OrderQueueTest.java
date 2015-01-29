@@ -229,6 +229,17 @@ public class OrderQueueTest {
     
     @Test
     public void testWhenRequestForReportAndThereAreOrdersThenReturnJsonObject() throws Exception {
+        OrderQueue orderQueue = new OrderQueue();
+        Order order = new Order("CUST00001", "ABC Construction");
+        order.addPurchase(new Purchase(0004, 450));
+        order.addPurchase(new Purchase(0006, 250));
+        orderQueue.add(order);
         
+        
+        String result = orderQueue.report(order);
+        Date timeNow = new Date();
+        String expResult = "{\"orders\":[{\"notes\":null,\"purchases\":[{\"quantity\":250,\"productId\":6}],\"timeProcessed\":null,\"customerId\":\"CUST00001\",\"timeReceived\":" + timeNow + "\"timeFulfilled\":null,\"customerName\":\"ABC Construction\"}]}";
+        
+        assertEquals(expResult, result);
     }
 }
