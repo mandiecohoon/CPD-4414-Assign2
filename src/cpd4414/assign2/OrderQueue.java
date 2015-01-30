@@ -34,7 +34,8 @@ import org.json.simple.JSONObject;
  */
 public class OrderQueue {
     Queue<Order> orderQueue = new ArrayDeque<>();
-    ArrayList<Order> processing = new ArrayList<>();
+    Queue<Order> processing = new ArrayDeque<>();
+    //ArrayList<Order> processing = new ArrayList<>();
     
     public void add(Order order) throws Exception {
         if (order.getCustomerId() == null || order.getCustomerName() == null) {
@@ -90,17 +91,25 @@ public class OrderQueue {
         }
     }
     
-    public String report(Order order) throws IOException {
+    public String report(Order order, String listType) throws IOException {
         JSONObject reportObj = new JSONObject();
         Map reportMap = new LinkedHashMap();
         
         JSONArray ordersArr = new JSONArray();
         String report;
         
-        if (orderQueue.isEmpty()) {
+        Queue<Order> list;
+        
+        if(listType == "processing") {
+            list = processing;
+        } else {
+            list = orderQueue;
+        }
+        
+        if (list.isEmpty()) {
             report =  "";
         } else {
-            for (Iterator indvOrder = orderQueue.iterator();indvOrder.hasNext();) {
+            for (Iterator indvOrder = list.iterator();indvOrder.hasNext();) {
                 Order currentOrder = (Order) indvOrder.next();
                 Map ordersMap = new LinkedHashMap();
                 JSONArray purchasesArr = new JSONArray();
