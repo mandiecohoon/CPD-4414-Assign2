@@ -29,7 +29,7 @@ import org.junit.Test;
 
 /**
  *
- * @author Len Payne <len.payne@lambtoncollege.ca>
+ * @author Len Payne <len.payne@lambtoncollege.ca>, Amanda Cohoon <mandiecohoon@gmail.com>
  */
 public class OrderQueueTest {
     
@@ -128,7 +128,7 @@ public class OrderQueueTest {
         assertEquals(expResult, result);
     }
     
-   /*
+   
     @Test
     public void testWhenOrderHasTimeRecievedAndOrderIsInStockThenSetTimeToNow() throws Exception {
         OrderQueue orderQueue = new OrderQueue();
@@ -144,8 +144,7 @@ public class OrderQueueTest {
         
         assertEquals(expResult, result);
     }
-    */
-    /*
+    
     @Test
     public void testWhenOrderDoesNotHaveTimeRecievedThenThrowException() throws Exception {
         OrderQueue orderQueue = new OrderQueue();
@@ -162,7 +161,7 @@ public class OrderQueueTest {
         
         assertTrue(flag);
     }
-    */
+    
     
     @Test
     public void testWhenOrderFulfilledThenSetTimeFulfilledToNow() throws Exception {
@@ -222,7 +221,7 @@ public class OrderQueueTest {
         Order order = new Order("CUST00001", "ABC Construction");
         
         String expResult = "";
-        String result = orderQueue.report(order);
+        String result = orderQueue.report(order, "orderQueue");
         
         assertEquals(expResult, result);
     }
@@ -230,15 +229,26 @@ public class OrderQueueTest {
     @Test
     public void testWhenRequestForReportAndThereAreOrdersThenReturnJsonObject() throws Exception {
         OrderQueue orderQueue = new OrderQueue();
-        Order order = new Order("CUST00001", "ABC Construction");
-        order.addPurchase(new Purchase(0004, 450));
-        order.addPurchase(new Purchase(0006, 250));
+        Order order = new Order("11", "aaa");
+        order.addPurchase(new Purchase(0004, 2));
+        order.addPurchase(new Purchase(0005, 3));
         orderQueue.add(order);
         
+        Order orderNew = new Order("22", "bbb");
+        orderNew.addPurchase(new Purchase(0006, 6));
+        orderNew.addPurchase(new Purchase(0007, 98));
+        orderQueue.add(orderNew);
         
-        String result = orderQueue.report(order);
+        String result = orderQueue.report(order, "orderQueue");
         Date timeNow = new Date();
-        String expResult = "{\"orders\":[{\"notes\":null,\"purchases\":[{\"quantity\":250,\"productId\":6}],\"timeProcessed\":null,\"customerId\":\"CUST00001\",\"timeReceived\":" + timeNow + "\"timeFulfilled\":null,\"customerName\":\"ABC Construction\"}]}";
+        
+        String expResult = "{\"orders\":[{\"customerId\":\"11\",\"customerName\":\"aaa\","
+                + "\"timeReceived\":"+ timeNow + ",\"timeProcessed\":null,"
+                + "\"timeFulfilled\":null,\"purchases\":[{\"productId\":4,\"quantity\":2},"
+                + "{\"productId\":5,\"quantity\":3}],\"notes\":null},{\"customerId\":\"22\","
+                + "\"customerName\":\"bbb\",\"timeReceived\":"+ timeNow + ","
+                + "\"timeProcessed\":null,\"timeFulfilled\":null,\"purchases\":[{\"productId\":6,\"quantity\":6},"
+                + "{\"productId\":7,\"quantity\":98}],\"notes\":null}]}";
         
         assertEquals(expResult, result);
     }
